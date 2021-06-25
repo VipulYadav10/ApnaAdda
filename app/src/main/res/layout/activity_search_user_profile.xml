@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.SearchUserProfile"
+    android:gravity="center_horizontal"
+    android:padding="25dp"
+    android:layout_marginTop="40dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_image_search_user_profile"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@mipmap/man" />
+
+    <TextView
+        android:id="@+id/user_name_search_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/status_search_user_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:textColor="#A1000000"/>
+
+    <TextView
+        android:id="@+id/already_friend_search_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already Friends!"
+        android:textSize="15sp"
+        android:textColor="#7E000000"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/add_friend_button_search_user_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Friend"
+        android:layout_marginTop="100dp"/>
+
+</LinearLayout>

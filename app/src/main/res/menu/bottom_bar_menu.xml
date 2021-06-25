@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group_1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/friends_bottomSheet"
+            android:title="Friends"
+            android:icon="@drawable/ic_friends"/>
+
+        <item
+            android:id="@+id/chat_bottomSheet"
+            android:title="Chat"
+            android:icon="@drawable/ic_chat"/>
+
+        <item
+            android:id="@+id/requests_bottomSheet"
+            android:title="Requests"
+            android:icon="@drawable/ic_request_person_add"/>
+
+        <item
+            android:id="@+id/add_friend_bottomSheet"
+            android:title="Add Friend"
+            android:icon="@drawable/ic_add_friend" />
+
+    </group>
+
+    <group
+        android:id="@+id/group_2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/aboutUs"
+            android:title="About Us"
+            android:icon="@drawable/ic_info"/>
+
+    </group>
+
+</menu>

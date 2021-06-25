@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".auth.EnterCodeActivity">
+
+        <TextView
+            android:id="@+id/enter_code_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_code_title"
+            style="@style/heading_style"/>
+
+        <TextView
+            android:id="@+id/enter_code_text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_code_text"
+            style="@style/subtext_style"
+            android:layout_below="@+id/enter_code_textView"/>
+
+        <TextView
+            android:id="@+id/invalid_code_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/invalid_code_text"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_below="@id/enter_code_text_id"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/code_editText"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_below="@id/enter_code_text_id"
+            android:layout_centerHorizontal="true"
+            android:maxLength="6"
+            android:maxLines="1"
+            android:singleLine="true"/>
+
+        <Button
+            android:id="@+id/verify_button_code_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verify"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/defalut_button"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"/>
+
+
+    </RelativeLayout>
+
+</layout>

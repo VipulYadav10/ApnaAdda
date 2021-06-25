@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:gravity="center_horizontal"
+        tools:context=".auth.PhoneAuthActivity">
+
+        <TextView
+            android:id="@+id/enter_number_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_number_text"
+            style="@style/heading_style" />
+
+        <TextView
+            android:id="@+id/sms_alert_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sms_alert_text"
+            style="@style/subtext_style" />
+
+
+        <TextView
+            android:id="@+id/plus_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus_symbol"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginTop="14dp"
+            android:layout_below="@id/sms_alert_textView"/>
+
+        <EditText
+            android:id="@+id/country_code"
+            android:layout_width="37dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sms_alert_textView"
+            android:layout_toEndOf="@+id/plus_symbol"
+            android:hint=" 91"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="?android:textColorHint"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:singleLine="true"/>
+
+        <EditText
+            android:id="@+id/phone_number_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="phone number"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_toEndOf="@id/country_code"
+            android:layout_below="@id/sms_alert_textView"
+            android:layout_marginBottom="40dp"
+            android:textColorHint="?android:textColorHint"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:singleLine="true"/>
+
+        <Button
+            android:id="@+id/verify_button_phone_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:background="@drawable/defalut_button"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+
+    </RelativeLayout>
+
+
+</layout>
