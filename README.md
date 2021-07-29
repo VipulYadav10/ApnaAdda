@@ -1,6 +1,6 @@
 # ApnaAdda
 # Description
-A Social app that helps you to connect with your friends either by phone or email login. You can send and recieve text messages to your friends and loved ones.
+A Social app that helps you to connect with your friends either by phone or email login. You can send and recieve text messages from your friends and loved ones.
 # What it does
 ApnaAdda has following fetures:
   1. Login via phone number or create your own login credentials.
