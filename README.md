@@ -11,3 +11,4 @@ ApnaAdda has following fetures:
   1. Send images and other types of media
   2. One-to-One video calling
   3. Live location
+  4. Notifications
