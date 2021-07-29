@@ -31,6 +31,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.vip.apnaadda.MainActivity;
+import com.vip.apnaadda.MainActivity2;
 import com.vip.apnaadda.R;
 import com.vip.apnaadda.model.UserApi;
 import com.vip.apnaadda.util.ImageUploadedCallback;
@@ -120,7 +121,7 @@ public class NewProfileActivity extends AppCompatActivity{
                                         public void onSuccess(DocumentReference documentReference) {
                                             mProfileDialog.dismiss();
 
-                                            startActivity(new Intent(NewProfileActivity.this, MainActivity.class)
+                                            startActivity(new Intent(NewProfileActivity.this, MainActivity2.class)
                                                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                                         }
                                     })

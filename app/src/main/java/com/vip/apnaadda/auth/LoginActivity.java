@@ -29,8 +29,10 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.vip.apnaadda.MainActivity;
+import com.vip.apnaadda.MainActivity2;
 import com.vip.apnaadda.R;
 import com.vip.apnaadda.model.UserApi;
+import com.vip.apnaadda.util.NetworkState;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -70,23 +72,28 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!TextUtils.isEmpty(userEmailEditText.getText().toString().trim())
-                    && !TextUtils.isEmpty(userPasswordEditText.getText().toString().trim())) {
+                if(!NetworkState.getNetworkState(LoginActivity.this)) {
+                    Toast.makeText(LoginActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if (!TextUtils.isEmpty(userEmailEditText.getText().toString().trim())
+                            && !TextUtils.isEmpty(userPasswordEditText.getText().toString().trim())) {
 
-                    // Hiding keyboard
-                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        // Hiding keyboard
+                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
-                    showProgressDialog();
+                        showProgressDialog();
 
-                    String email = userEmailEditText.getText().toString().trim();
-                    String password = userPasswordEditText.getText().toString().trim();
+                        String email = userEmailEditText.getText().toString().trim();
+                        String password = userPasswordEditText.getText().toString().trim();
 
-                    loginUser(email, password);
+                        loginUser(email, password);
 
-                } else {
-                    Toast.makeText(LoginActivity.this, "Empty fields not allowed",
-                            Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Empty fields not allowed",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -128,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     userApi.setGender(snapshot.getString("gender"));
                                                     userApi.setUserUid(snapshot.getString("uid"));
 
-                                                    startActivity(new Intent(LoginActivity.this, MainActivity.class)
+                                                    startActivity(new Intent(LoginActivity.this, MainActivity2.class)
                                                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                                                 }
                                             }
@@ -137,8 +144,8 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             mLoginDialog.hide();
 
-                            Toast.makeText(LoginActivity.this, "Please check the credentials and try again.",
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginActivity.this, "Please check the credentials and try again.",
+//                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 })

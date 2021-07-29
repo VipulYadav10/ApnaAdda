@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
@@ -27,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.vip.apnaadda.R;
 import com.vip.apnaadda.model.UserApi;
 import com.vip.apnaadda.ui.NewProfileActivity;
+import com.vip.apnaadda.util.NetworkState;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -60,24 +63,27 @@ public class CreateAccountActivity extends AppCompatActivity {
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                
-                if(!TextUtils.isEmpty(currentUserName.getText().toString().trim())
-                    && !TextUtils.isEmpty(userEmail.getText().toString().trim())
-                    && !TextUtils.isEmpty(userPassword.getText().toString().trim())) {
-
-                    String name = currentUserName.getText().toString().trim();
-                    String email = userEmail.getText().toString().trim();
-                    String password =userPassword.getText().toString().trim();
-
-                    createUserAccount(name, email, password);
-
+                if(!NetworkState.getNetworkState(CreateAccountActivity.this)) {
+                    Toast.makeText(CreateAccountActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(CreateAccountActivity.this, "Empty fields not allowed",
-                        Toast.LENGTH_SHORT).show();
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+                    if (!TextUtils.isEmpty(currentUserName.getText().toString().trim())
+                            && !TextUtils.isEmpty(userEmail.getText().toString().trim())
+                            && !TextUtils.isEmpty(userPassword.getText().toString().trim())) {
+
+                        String name = currentUserName.getText().toString().trim();
+                        String email = userEmail.getText().toString().trim();
+                        String password = userPassword.getText().toString().trim();
+
+                        createUserAccount(name, email, password);
+
+                    } else {
+                        Toast.makeText(CreateAccountActivity.this, "Empty fields not allowed",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -117,8 +123,9 @@ public class CreateAccountActivity extends AppCompatActivity {
 //                            progressBar.setVisibility(View.INVISIBLE);
                             proceedButton.setVisibility(View.VISIBLE);
 
+
                             Toast.makeText(CreateAccountActivity.this,
-                                    "Account Creation Failed" + " " + e.toString(),
+                                    "Account Creation Failed" + " " + e.getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     });

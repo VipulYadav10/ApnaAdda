@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.vip.apnaadda.MainActivity;
+import com.vip.apnaadda.MainActivity2;
 import com.vip.apnaadda.R;
 import com.vip.apnaadda.databinding.ActivityEnterCodeBinding;
 import com.vip.apnaadda.model.UserApi;
@@ -129,7 +130,7 @@ public class EnterCodeActivity extends AppCompatActivity {
 
                             if(task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 binding.codeEditText.getText().clear();
-//                                binding.codeEditText.setEnabled(true);
+                                binding.codeEditText.setEnabled(true);
                                 binding.invalidCodeId.setVisibility(View.VISIBLE);
 
                             }
@@ -159,7 +160,7 @@ public class EnterCodeActivity extends AppCompatActivity {
                                 userApi.setName(snapshot.getString("Name"));
                                 userApi.setGender(snapshot.getString("Gender"));
 
-                                startActivity(new Intent(EnterCodeActivity.this, MainActivity.class)
+                                startActivity(new Intent(EnterCodeActivity.this, MainActivity2.class)
                                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                             }
                         } else {

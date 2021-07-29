@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginEnd="100dp"
     android:padding="10dp">
 
     <RelativeLayout
+        android:id="@+id/rel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/message_box_sender"
-        android:padding="10dp"
-        android:layout_alignParentStart="true">
+        android:paddingTop="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        android:layout_alignParentStart="true"
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/text_view_sender_message_list_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
+            android:minWidth="40dp"
             android:textColor="@android:color/white"/>
 
-
+        <TextView
+            android:id="@+id/time_text_view_sender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/whiteGrey"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@id/text_view_sender_message_list_item"
+            android:layout_alignEnd="@id/text_view_sender_message_list_item" />
     </RelativeLayout>
+
+
 
 </RelativeLayout>
 

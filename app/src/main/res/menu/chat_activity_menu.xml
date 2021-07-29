@@ -3,18 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/user_image_chat_menu"
-        android:icon="@drawable/ic_profile_person"
-        android:title="User Image"
-        app:showAsAction="always"
-        app:iconTint="@android:color/white"/>
-
-    <item
         android:id="@+id/view_user"
         android:title="View user"/>
 
     <item
         android:id="@+id/delete_all_chat"
         android:title="Delete all chats"/>
+
+    <item
+        android:id="@+id/unfriend_chat"
+        android:title="Remove friend"/>
 
 </menu>

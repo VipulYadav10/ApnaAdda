@@ -18,4 +18,7 @@
     <string name="plus_symbol">+</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_friends_empty_list_detail">Seems you are not a socialized person. Want to make friends then press the Add Friend button below.</string>
+    <string name="text_requests_empty_list_detail">You don\'t have any requests right now! Please comeback after a short duration to see if anyone wants to connect with you.</string>
+    <string name="divider_text">divider</string>
 </resources>

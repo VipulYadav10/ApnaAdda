@@ -3,11 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.FriendsFragment">
+    tools:context=".ui.FriendsFragment"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friends_fragment_recycler_view"
         android:layout_width="match_parent"
+        android:paddingTop="5dp"
         android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/friends_empty_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friends List Empty!"
+            android:textColor="#686767"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_friends_empty_list_detail"
+            android:paddingTop="8dp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+
 
 </FrameLayout>

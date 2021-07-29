@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -62,6 +63,9 @@ public class SearchUserProfile extends AppCompatActivity {
 
                         if(!queryDocumentSnapshots.isEmpty()) {
                             for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                                Glide.with(SearchUserProfile.this)
+                                        .load(snapshot.getString("imageUrl"))
+                                        .into(userImage);
                                 userName.setText(snapshot.getString("name"));
                                 userStatus.setText(snapshot.getString("status"));
                             }

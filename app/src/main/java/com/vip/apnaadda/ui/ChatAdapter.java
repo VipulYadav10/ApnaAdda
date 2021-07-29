@@ -1,5 +1,7 @@
 package com.vip.apnaadda.ui;
 
+import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.google.firebase.Timestamp;
 import com.vip.apnaadda.R;
 import com.vip.apnaadda.model.ChatMessage;
@@ -22,6 +25,10 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatMessage, RecyclerV
 
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     public static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
+
+    public int itemCount;
+    private RecyclerView recyclerView;
+    private String messageTime;
 
     public ChatAdapter(@NonNull FirestoreRecyclerOptions<ChatMessage> options) {
         super(options);
@@ -66,16 +73,39 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatMessage, RecyclerV
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:
                 ((SentViewHolder) holder).message.setText(model.getText());
-//                ((SentViewHolder) holder).time.setText(time);
+                messageTime = model.getTime().toDate().toString();
+                messageTime = messageTime.substring(11, 16);
+                ((SentViewHolder) holder).time.setText(messageTime);
                 break;
             case VIEW_TYPE_MESSAGE_RECEIVED:
                 ((ReceivedViewHolder) holder).message.setText(model.getText());
-//                ((ReceivedViewHolder) holder).time.setText(time);
+                messageTime = model.getTime().toDate().toString();
+                messageTime = messageTime.substring(11, 16);
+                ((ReceivedViewHolder) holder).time.setText(messageTime);
                 break;
         }
     }
 
 //    @Override
+//    public int getItemCount() {
+//        Log.d("Count", "getItemCount: " + super.getItemCount());
+//        return super.getItemCount();
+//    }
+
+    @Override
+    public void onDataChanged() {
+        recyclerView.scrollToPosition(getItemCount()-1);
+        
+        super.onDataChanged();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    //    @Override
 //    protected void onBindViewHolder(@NonNull SentViewHolder holder, int position, @NonNull ChatMessage model) {
 //        holder.message.setText(model.getText());
 //    }
@@ -85,26 +115,26 @@ public class ChatAdapter extends FirestoreRecyclerAdapter<ChatMessage, RecyclerV
     public static class SentViewHolder extends RecyclerView.ViewHolder {
 
         TextView message;
-//        TextView time;
+        TextView time;
 
         public SentViewHolder(@NonNull View itemView) {
             super(itemView);
 
             message = itemView.findViewById(R.id.text_view_owner_message_list_item);
-//            time = itemView.findViewById(R.id.time_text_view_owner);
+            time = itemView.findViewById(R.id.time_text_view_owner);
         }
     }
 
     public static class ReceivedViewHolder extends RecyclerView.ViewHolder {
 
         TextView message;
-//        TextView time;
+        TextView time;
 
         public ReceivedViewHolder(@NonNull View itemView) {
             super(itemView);
 
             message = itemView.findViewById(R.id.text_view_sender_message_list_item);
-//            time = itemView.findViewById(R.id.time_text_view_sender);
+            time = itemView.findViewById(R.id.time_text_view_sender);
         }
     }
 }

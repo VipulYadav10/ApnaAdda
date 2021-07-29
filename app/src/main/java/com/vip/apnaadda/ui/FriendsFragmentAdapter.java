@@ -2,15 +2,18 @@ package com.vip.apnaadda.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.EventListener;
@@ -30,10 +33,19 @@ public class FriendsFragmentAdapter extends FirestoreRecyclerAdapter<RequestUser
 
     private OnItemClick onItemClick;
 //    private RoomIdInterface callback;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private UserApi userApi = UserApi.getInstance();
+    private Context context;
 
-    public FriendsFragmentAdapter(@NonNull FirestoreRecyclerOptions<RequestUserObject> options, OnItemClick onItemClick) {
+    private LinearLayout emptyLayout;
+    private RecyclerView recyclerView;
+
+
+    public FriendsFragmentAdapter(@NonNull FirestoreRecyclerOptions<RequestUserObject> options, OnItemClick onItemClick, Context context, LinearLayout emptyLayout) {
         super(options);
         this.onItemClick = onItemClick;
+        this.context = context;
+        this.emptyLayout = emptyLayout;
     }
 
     @NonNull
@@ -48,9 +60,54 @@ public class FriendsFragmentAdapter extends FirestoreRecyclerAdapter<RequestUser
     @Override
     protected void onBindViewHolder(@NonNull FriendsViewHolder holder, int position, @NonNull RequestUserObject model) {
         holder.userName.setText(model.getName());
+        db.collection("Users").whereEqualTo("uid", model.getUid())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error != null) return;
+
+                        if(!value.isEmpty()) {
+                            for(QueryDocumentSnapshot snapshot : value) {
+                                String imageUrl = snapshot.getString("imageUrl");
+                                if(imageUrl.trim().length() != 0) {
+                                    Glide.with(context)
+                                            .load(imageUrl)
+                                            .into(holder.userImage);
+                                }
+                                else {
+                                    holder.userImage.setImageResource(R.mipmap.default_user_icon3);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+        if(getItemCount() == 0) {
+            hideRecycler();
+        }
+        super.onAttachedToRecyclerView(recyclerView);
+    }
 
+    @Override
+    public void onDataChanged() {
+        if(getItemCount() == 0) {
+            hideRecycler();
+        }
+        else if(recyclerView.getVisibility() == View.GONE) {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
+        }
+        super.onDataChanged();
+    }
+
+    public void hideRecycler() {
+        recyclerView.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.VISIBLE);
+    }
 
     public class FriendsViewHolder extends RecyclerView.ViewHolder {
 

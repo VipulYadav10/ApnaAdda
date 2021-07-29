@@ -64,27 +64,27 @@ public class MainActivity extends AppCompatActivity {
         bottomAppBar = findViewById(R.id.bottom_appbar);
         setSupportActionBar(bottomAppBar);
 
-        bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomDrawerFragment bottomDrawerFragment = new BottomDrawerFragment();
-                bottomDrawerFragment.show(getSupportFragmentManager(), "TAG");
-            }
-        });
+//        bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                BottomDrawerFragment bottomDrawerFragment = new BottomDrawerFragment();
+//                bottomDrawerFragment.show(getSupportFragmentManager(), "TAG");
+//            }
+//        });
 
 
 
 
 
-        saveToSharedPreferences(currentUser);
+//        saveToSharedPreferences(currentUser);
 
 //        userTextView = findViewById(R.id.user_text_view);
 //        gotoMessage = findViewById(R.id.goto_message);
 //        gotoFab = findViewById(R.id.goto_fab);
-
+//
 //        userTextView.setText(MessageFormat.format("Hey! {0}", userApi.getName()));
-
-
+//
+//
 //        gotoMessage.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -102,58 +102,58 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void saveToSharedPreferences(FirebaseUser currentUser) {
-        SharedPreferences sharedPreferences = getSharedPreferences(S_PREFS_ID, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("name", userApi.getName());
-        editor.putString("uid", userApi.getUserUid());
+//    private void saveToSharedPreferences(FirebaseUser currentUser) {
+//        SharedPreferences sharedPreferences = getSharedPreferences(S_PREFS_ID, MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("name", userApi.getName());
+//        editor.putString("uid", userApi.getUserUid());
+//
+//        editor.apply();
+//    }
 
-        editor.apply();
-    }
 
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater menuInflater = getMenuInflater();
+//        menuInflater.inflate(R.menu.options_menu, menu);
+//
+//        return true;
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.options_menu, menu);
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.profile:
+//                // profile
+////                Toast.makeText(this, "profile", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
+//                break;
+//            case R.id.settings:
+//                //settings
+//                Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
+//                break;
+//            case R.id.logout_optionsMenu:
+//                signOutUser();
+//                break;
+//        }
+//        return true;
+//    }
 
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.profile:
-                // profile
-//                Toast.makeText(this, "profile", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
-                break;
-            case R.id.settings:
-                //settings
-                Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.logout_optionsMenu:
-                signOutUser();
-                break;
-        }
-        return true;
-    }
-
-    private void signOutUser() {
-        if(currentUser != null) {
-            FirebaseAuth.getInstance().signOut();
-
-            SharedPreferences sharedPreferences = getSharedPreferences(S_PREFS_ID, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("uid", "");
-            editor.apply();
-
-            startActivity(new Intent(MainActivity.this, StartActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-
-        }
-    }
+//    private void signOutUser() {
+//        if(currentUser != null) {
+//            FirebaseAuth.getInstance().signOut();
+//
+//            SharedPreferences sharedPreferences = getSharedPreferences(S_PREFS_ID, MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putString("uid", "");
+//            editor.apply();
+//
+//            startActivity(new Intent(MainActivity.this, StartActivity.class)
+//                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+//
+//        }
+//    }
 
 
 }

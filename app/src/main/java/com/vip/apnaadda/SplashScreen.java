@@ -44,7 +44,7 @@ public class SplashScreen extends AppCompatActivity {
                     finish();
                 } else {
                     fetchDataFromFireStore();
-                    startActivity(new Intent(SplashScreen.this, MainActivity.class)
+                    startActivity(new Intent(SplashScreen.this, MainActivity2.class)
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             }

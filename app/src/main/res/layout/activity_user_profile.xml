@@ -7,15 +7,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.UserProfileActivity"
-    android:gravity="center_horizontal"
-    android:padding="25dp"
-    android:layout_marginTop="40dp">
+    android:gravity="center_horizontal">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_user_profile"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        app:title="Profile"
+        app:titleTextColor="#CDCDCD"
+        app:menu="@menu/profile_menu"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginTop="40dp"
         android:id="@+id/user_image_user_profile"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:src="@mipmap/man" />
+        android:src="@mipmap/default_user_icon3" />
 
     <TextView
         android:id="@+id/user_name_user_profile"

@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -29,6 +32,7 @@ public class FriendsFragment extends Fragment implements FriendsFragmentAdapter.
     private UserApi userApi = UserApi.getInstance();
 
     private FirestoreRecyclerAdapter adapter;
+    private LinearLayout emptyLayout;
 
     public FriendsFragment() {
         // Required empty public constructor
@@ -49,6 +53,7 @@ public class FriendsFragment extends Fragment implements FriendsFragmentAdapter.
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
         recyclerView = view.findViewById(R.id.friends_fragment_recycler_view);
+        emptyLayout = view.findViewById(R.id.friends_empty_layout);
 
         Query query = db.collection("Friends")
                 .document(userApi.getUserUid())
@@ -58,10 +63,11 @@ public class FriendsFragment extends Fragment implements FriendsFragmentAdapter.
                 .setQuery(query, RequestUserObject.class)
                 .build();
 
-        adapter = new FriendsFragmentAdapter(options, this);
+        adapter = new FriendsFragmentAdapter(options, this, getActivity(), emptyLayout);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
 
         return view;

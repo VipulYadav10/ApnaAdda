@@ -16,9 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,6 +52,9 @@ public class RequestsFragment extends Fragment {
 
     private FirestoreRecyclerAdapter adapter;
 
+    private LinearLayout emptyLayout;
+    private boolean accepted = false;
+
     public RequestsFragment() {
         // Required empty public constructor
     }
@@ -63,6 +68,7 @@ public class RequestsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_requests, container, false);
 
         requestRecyclerView = view.findViewById(R.id.requests_recyclerView);
+        emptyLayout = view.findViewById(R.id.requests_empty_layout);
 
         Query query = db.collection("Requests").document(userApi.getUserUid()).collection("Senders");
 
@@ -81,10 +87,63 @@ public class RequestsFragment extends Fragment {
             }
 
             @Override
+            public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+                if(getItemCount() == 0) {
+                    hideRecycler();
+                }
+                else if(recyclerView.getVisibility() == View.GONE) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                }
+                super.onAttachedToRecyclerView(recyclerView);
+            }
+
+            @Override
+            public void onDataChanged() {
+                if(getItemCount() == 0) {
+                    hideRecycler();
+                }
+                else if(requestRecyclerView.getVisibility() == View.GONE) {
+                    requestRecyclerView.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                }
+                super.onDataChanged();
+            }
+
+            public void hideRecycler() {
+                requestRecyclerView.setVisibility(View.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
             protected void onBindViewHolder(@NonNull RequestViewHolder holder, int position, @NonNull RequestUserObject model) {
                 holder.userName.setText(model.getName());
+                db.collection("Users").whereEqualTo("uid", model.getUid())
+                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if(error != null) return;
+
+                                if(!value.isEmpty()) {
+                                    for(QueryDocumentSnapshot snapshot : value) {
+                                        String imageUrl = snapshot.getString("imageUrl");
+                                        if(imageUrl.trim().length() != 0) {
+                                            Glide.with(RequestsFragment.this)
+                                                    .load(imageUrl)
+                                                    .into(holder.userImage);
+                                        }
+                                        else {
+                                            holder.userImage.setImageResource(R.mipmap.default_user_icon3);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+
             }
         };
+
 
 
         requestRecyclerView.setHasFixedSize(true);
@@ -100,8 +159,8 @@ public class RequestsFragment extends Fragment {
         CircleImageView userImage;
         TextView userName;
         TextView requestAccepted;
-        Button acceptButton;
-        Button rejectButton;
+        TextView acceptButton;
+        TextView rejectButton;
 
         public RequestViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -120,9 +179,13 @@ public class RequestsFragment extends Fragment {
         public void onClick(View view) {
             switch(view.getId()) {
                 case R.id.list_item_acceptButton:
+                    acceptButton.setVisibility(View.GONE);
+                    rejectButton.setVisibility(View.GONE);
                     addToFriends();
                     break;
                 case R.id.list_item_rejectButton:
+                    acceptButton.setVisibility(View.GONE);
+                    rejectButton.setVisibility(View.GONE);
                     deleteRequest((RequestUserObject) adapter.getItem(getAdapterPosition()));
                     break;
             }
@@ -140,9 +203,8 @@ public class RequestsFragment extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            acceptButton.setVisibility(View.GONE);
-                            rejectButton.setVisibility(View.GONE);
-                            requestAccepted.setVisibility(View.VISIBLE);
+                            requestAccepted.setText("Request Accepted");
+                            accepted = true;
 
                             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
@@ -226,6 +288,8 @@ public class RequestsFragment extends Fragment {
 
                             if(!deleteSnapshots.isEmpty()) {
                                 for(QueryDocumentSnapshot snapshot : deleteSnapshots) {
+                                    if(!accepted) requestAccepted.setText("Request Rejected");
+                                    accepted = false;
                                     snapshot.getReference().delete();
                                 }
                             }

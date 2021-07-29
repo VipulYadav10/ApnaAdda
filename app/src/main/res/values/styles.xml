@@ -6,10 +6,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlNormal">#CDCDCD</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="android:editTextColor">@android:color/white</item>
+
 
     </style>
 
@@ -35,6 +36,7 @@
         <item name="android:layout_below">@+id/enter_number_textView</item>
         <item name="android:textColor">?android:textColorHint</item>
     </style>
+
 
 
 </resources>
