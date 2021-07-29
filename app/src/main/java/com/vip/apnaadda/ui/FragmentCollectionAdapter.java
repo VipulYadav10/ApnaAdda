@@ -16,17 +16,23 @@ public class FragmentCollectionAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
 
+//        switch(position) {
+//            case 1:
+//                return new RequestsFragment();
+//            case 2:
+//                return new FriendsFragment();
+//        }
         switch(position) {
             case 1:
                 return new RequestsFragment();
-            case 2:
-                return new FriendsFragment();
         }
-        return new ChatFragment();
+//        return new ChatFragment();
+        return new FriendsFragment();
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+//        return 3;
+        return 2;
     }
 }

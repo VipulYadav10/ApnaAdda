@@ -63,9 +63,12 @@ public class MainActivity2 extends AppCompatActivity {
         viewPager.setAdapter(fragmentCollectionAdapter);
 
 
-        tabLayout.addTab(tabLayout.newTab().setText("Chat"));
-        tabLayout.addTab(tabLayout.newTab().setText("Requests"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Chat"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Requests"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Friends"));
+
         tabLayout.addTab(tabLayout.newTab().setText("Friends"));
+        tabLayout.addTab(tabLayout.newTab().setText("Requests"));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
