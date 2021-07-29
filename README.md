@@ -7,7 +7,7 @@ ApnaAdda has following fetures:
   2. Find friends on ApnaAdda and connect with them.
   3. Upload status
   4. Chat with friends
-# What's upcoming features in ApnaAdda
+# Upcoming features of ApnaAdda
   1. Send images and other types of media
   2. One-to-One video calling
   3. Live location
